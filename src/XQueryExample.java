@@ -32,7 +32,7 @@ import org.xmldb.api.modules.XMLResource;
  */
 public class XQueryExample {
 
-    protected static final String URI = "xmldb:exist://localhost:8080/exist/xmlrpc";
+    protected static final String URI = "xmldb:exist://192.168.0.16:8080/exist/xmlrpc";
 
     protected static final String driver = "org.exist.xmldb.DatabaseImpl";
 
@@ -61,7 +61,7 @@ public class XQueryExample {
             DatabaseManager.registerDatabase( database );
             
             //String query = readFile(args[0]);
-            String query = "for $x in doc(\"/db/nutoll/books.xml\")//catalog/book/author return normalize-space($x)";
+            String query = "for $x in doc(\"/db/nutoll/book.xml\")//catalog/book/author return normalize-space($x)";
             
             // get root-collection
             Collection col =
