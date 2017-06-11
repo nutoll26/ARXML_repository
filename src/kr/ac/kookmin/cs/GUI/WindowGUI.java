@@ -1,4 +1,4 @@
-package kr.ac.kookmin.cs.GUI;
+package kr.ac.kookmin.cs.gui;
 
 import java.awt.Button;
 import java.awt.Component;
@@ -21,7 +21,7 @@ import javax.swing.event.ListSelectionListener;
 
 import org.xmldb.api.base.XMLDBException;
 
-import kr.ac.kookmin.cs.Xquery.NetworkingExist;
+import kr.ac.kookmin.cs.xquery.NetworkingExist;
 
 
 public class WindowGUI extends JFrame{

@@ -1,4 +1,4 @@
-package kr.ac.kookmin.cs.Xquery;
+package kr.ac.kookmin.cs.xquery;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,15 +23,19 @@ import org.xmldb.api.base.ResourceSet;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
+import kr.ac.kookmin.cs.javaToExcel.ExtractExcel;
+
 public class NetworkingExist {
 	
 	final private String URI = "xmldb:exist://192.168.0.16:8080/exist/xmlrpc";
 	final private String driver = "org.exist.xmldb.DatabaseImpl";
 
 	private XQueryService service;
+	private ExtractExcel excel = null;
 	
 	public NetworkingExist() {
-
+		excel = new ExtractExcel();
+		
 		try {
 			Class<?> cl = Class.forName(driver);
 			Database database = (Database) cl.newInstance();
@@ -66,14 +70,16 @@ public class NetworkingExist {
 		CompiledExpression compiled = service.compile(query);
 
 		// execute query and get results in ResourceSet
-		ResourceSet result = service.execute(compiled);
+		ResourceSet queryResult = service.execute(compiled);
+		excel.createDelegationSheet(queryResult);
 		
-		ResourceIterator i = result.getIterator();
-		while (i.hasMoreResources()) {
-			org.xmldb.api.base.Resource r = i.nextResource();
-			String queryResult = (String) r.getContent();
-			System.out.println(queryResult);
-		}
+//		ResourceIterator i = result.getIterator();
+//		
+//		while (i.hasMoreResources()) {
+//			org.xmldb.api.base.Resource r = i.nextResource();
+//			String queryResult = (String) r.getContent();
+//			System.out.println(queryResult);
+//		}
 	}
 
 	/*

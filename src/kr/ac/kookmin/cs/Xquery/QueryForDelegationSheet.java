@@ -1,4 +1,4 @@
-package kr.ac.kookmin.cs.Xquery;
+package kr.ac.kookmin.cs.xquery;
 
 public class QueryForDelegationSheet {
 	static String queryDelegationSheet(String ecuName){
@@ -109,21 +109,21 @@ public class QueryForDelegationSheet {
 				
 				+ "    return if(count($connetors) != 0)\n"
 				+ "            then concat(\n"
-				+ "                $deligationPortInterfaceShortName[$i], \", \",\n"
-				+ "                $deligationPortInterfaceGategory[$i], \", \",\n"
-				+ "                $dataElementNameList, \", \",\n"
-				+ "                $dataTypeNameList, \", \",\n"
-				+ "                $dataTypeCategoryList, \", \",\n"
-				+ "                $deligationPortShortName[$i], \", \",\n"
+				+ "                $deligationPortInterfaceShortName[$i], \",\",\n"
+				+ "                $deligationPortInterfaceGategory[$i], \",\",\n"
+				+ "                $dataElementNameList, \",\",\n"
+				+ "                $dataTypeNameList, \",\",\n"
+				+ "                $dataTypeCategoryList, \",\",\n"
+				+ "                $deligationPortShortName[$i], \",\",\n"
 				+ "                $item\n"
 				+ "                )\n"
 				+ "            else concat(\n"
-				+ "                $deligationPortInterfaceShortName[$i], \", \",\n"
-				+ "                $deligationPortInterfaceGategory[$i], \", \",\n"
-				+ "                $dataElementNameList, \", \",\n"
-				+ "                $dataTypeNameList, \", \" ,\n"
-				+ "                $dataTypeCategoryList, \", \",\n"
-				+ "                $deligationPortShortName[$i], \", \",\n"
+				+ "                $deligationPortInterfaceShortName[$i], \",\",\n"
+				+ "                $deligationPortInterfaceGategory[$i], \",\",\n"
+				+ "                $dataElementNameList, \",\",\n"
+				+ "                $dataTypeNameList, \",\" ,\n"
+				+ "                $dataTypeCategoryList, \",\",\n"
+				+ "                $deligationPortShortName[$i], \",\",\n"
 				+ "                $deligationPortCategory_[$i]\n"
 				+ "                )";
 		
