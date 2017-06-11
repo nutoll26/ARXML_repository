@@ -62,12 +62,14 @@ public class NetworkingExist {
 	
 	public void SendQueryToExistDB(String ecuName) throws XMLDBException{
 		
-		String query = "declare default element namespace \"http://autosar.org/schema/r4.0\";"
-				+ "declare namespace xsi = \"http://www.w3.org/2001/XMLSchema-instance\";"
-				+ "declare namespace schemaLocation = \"http://autosar.org/schema/r4.0 autosar_4-2-2.xsd\";"
-				+ "for $CSWC in doc(\"/db/nutoll/AUTOSAR_MOD_AISpecificationExamples.arxml\")//AR-PACKAGE/ELEMENTS/COMPOSITION-SW-COMPONENT-TYPE\n"
-				+ "where $CSWC/SHORT-NAME = \"" + ecuName +"\"\n"
-				+ "return $CSWC/SHORT-NAME";
+//		String query = "declare default element namespace \"http://autosar.org/schema/r4.0\";"
+//				+ "declare namespace xsi = \"http://www.w3.org/2001/XMLSchema-instance\";"
+//				+ "declare namespace schemaLocation = \"http://autosar.org/schema/r4.0 autosar_4-2-2.xsd\";"
+//				+ "for $CSWC in doc(\"/db/nutoll/AUTOSAR_MOD_AISpecificationExamples.arxml\")//AR-PACKAGE/ELEMENTS/COMPOSITION-SW-COMPONENT-TYPE\n"
+//				+ "where $CSWC/SHORT-NAME = \"" + ecuName +"\"\n"
+//				+ "return $CSWC/SHORT-NAME";
+		
+		String query = QueryForDelegationSheet.queryDelegationSheet("SysPedProtnActvn");
 		CompiledExpression compiled = service.compile(query);
 
 		// execute query and get results in ResourceSet
