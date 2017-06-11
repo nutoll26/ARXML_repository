@@ -10,9 +10,8 @@ public class GraduateMain {
 
 	public static void main(String args[]) throws XMLDBException {
 		WindowGUI awtControlDemo = new WindowGUI();
-		awtControlDemo.showList();
-
 		NetworkingExist exist = new NetworkingExist();
-		exist.SendQueryToExistDB("SysPedProtnActvn");
+		
+		awtControlDemo.showList(exist);
 	}
 }

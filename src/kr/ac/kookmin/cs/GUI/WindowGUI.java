@@ -19,6 +19,10 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.xmldb.api.base.XMLDBException;
+
+import kr.ac.kookmin.cs.Xquery.NetworkingExist;
+
 
 public class WindowGUI extends JFrame{
 	private Frame mainFrame;
@@ -69,8 +73,8 @@ public class WindowGUI extends JFrame{
 		mainFrame.setVisible(true);
 	}
 
-	public void showList() {
-		final String []ecuCategoryStr = {"Body", "PT", "Chassis", "MmedTelmHmi", "OccptPedSfty"};
+	public void showList(NetworkingExist exist) {
+		final String []ecuCategoryStr = {"Body", "PT", "Chassis", "OccptPedSfty", "MmedTelmHmi"};
 		ecuCategoryList = new JList(ecuCategoryStr);
 		ecuCategoryList.setVisibleRowCount(3);
 
@@ -118,7 +122,7 @@ public class WindowGUI extends JFrame{
 		ecuList[2].add("SurrndgsSnsr");
 
 		ecuList[3] = new List(5, true);
-		ecuList[3].add("SnsrPoolOccpPedSfty");
+		ecuList[3].add("SnsrPoolOccptPedSfty");
 		ecuList[3].add("ActrPoolOccptPedSfty1");
 		ecuList[3].add("ActrPoolOccptPedSfty2");
 		ecuList[3].add("ActrPoolOccptPedSfty3");
@@ -147,7 +151,14 @@ public class WindowGUI extends JFrame{
 
 		ExtractButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String ecuName = ecuList[optionNum].getSelectedItem();
 				System.out.println(ecuList[optionNum].getSelectedItem());
+				try {
+					exist.SendQueryToExistDB(ecuName);
+				} catch (XMLDBException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 
