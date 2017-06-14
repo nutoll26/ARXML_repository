@@ -108,14 +108,13 @@ public class ExtractExcel {
 			String str = (String) r.getContent();
 			StringTokenizer token = new StringTokenizer(str, ",");
 
-			System.out.println(str);
 			row = sheet1.createRow(rowNumber++);
 			cell = row.createCell(0);
 			cell.setCellValue(numbering++);
 
 			if (token.countTokens() == 8) {
-				System.out.println("8888");
 				int c = 1;
+				
 				while (token.hasMoreTokens()) {
 					String value = token.nextToken();
 
@@ -124,7 +123,6 @@ public class ExtractExcel {
 				}
 			} else if (token.countTokens() == 7) {
 				int c = 1;
-				System.out.println("7777");
 				
 				while (token.hasMoreTokens()) {
 					String value = token.nextToken();
