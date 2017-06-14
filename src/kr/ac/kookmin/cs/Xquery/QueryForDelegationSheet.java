@@ -13,6 +13,7 @@ public class QueryForDelegationSheet {
 				+ "for $CSWC in doc(\"nutoll/AUTOSAR_MOD_AISpecificationExamples.arxml\")//AR-PACKAGE/ELEMENTS/COMPOSITION-SW-COMPONENT-TYPE\n"
 				+ "where $CSWC/SHORT-NAME = \"" + ecuName + "\"\n"
 				
+				+ "let $ECUName := $CSWC/SHORT-NAME\n"
 				+ "let $CSWCShortName := $CSWC/SHORT-NAME/data()\n"
 				
 				+ "let $deligationPorts := $CSWC/PORTS\n"
@@ -52,7 +53,7 @@ public class QueryForDelegationSheet {
 				+ "        let $arr := [\n"
 				+ "            for $i in (1 to count($deligationPort))\n"
 				+ "            where $deligationPort[$i] = $deligationPortShortName[$j]\n"
-				+ "            return concat($deligationSWC[$i],\":\",$deligationPortCategory[$i])\n"
+				+ "            return concat($deligationPortCategory[$i],\":\",$deligationSWC[$i])\n"
 				+ "        ]\n"
 				+ "    return map:put($map, string($deligationPortShortName[$j]), $arr)\n"
 				+ ")\n"
@@ -124,7 +125,8 @@ public class QueryForDelegationSheet {
 				+ "                $dataTypeNameList, \",\" ,\n"
 				+ "                $dataTypeCategoryList, \",\",\n"
 				+ "                $deligationPortShortName[$i], \",\",\n"
-				+ "                $deligationPortCategory_[$i]\n"
+				+ "                $deligationPortCategory_[$i], \",\",\n"
+				+ "                $ECUName\n"
 				+ "                )";
 		
 		return query;

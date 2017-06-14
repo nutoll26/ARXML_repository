@@ -36,8 +36,15 @@ public class ExtractExcel {
 		Sheet sheet1 = xlsxWb.createSheet("Delegation");
 
 		// 컬럼 너비 설정
-		// sheet1.setColumnWidth(0, 10000);
-		// sheet1.setColumnWidth(9, 10000);
+		 sheet1.setColumnWidth(0, 1000);
+		 sheet1.setColumnWidth(1, 7000);
+		 sheet1.setColumnWidth(2, 10000);
+		 sheet1.setColumnWidth(3, 2000);
+		 sheet1.setColumnWidth(4, 5000);
+		 sheet1.setColumnWidth(5, 10000);
+		 sheet1.setColumnWidth(6, 10000);
+		 sheet1.setColumnWidth(7, 10000);
+		 sheet1.setColumnWidth(8, 10000);
 		// ----------------------------------------------------------
 
 		// *** Style--------------------------------------------------
@@ -106,14 +113,39 @@ public class ExtractExcel {
 			cell = row.createCell(0);
 			cell.setCellValue(rowNumber++);
 			
-			int c=1;
-			while(token.hasMoreTokens()){
-				String value = token.nextToken();
-				System.out.println(value);
-				
-				cell = row.createCell(c++);
-				cell.setCellValue(value);
-								
+			if(token.countTokens() == 8){
+				int c=1;
+				while(token.hasMoreTokens()){
+					String value = token.nextToken();
+					
+					cell = row.createCell(c++);
+					cell.setCellValue(value);
+				}	
+			}else if(token.countTokens() == 7){
+				int c=1;
+				while(token.hasMoreTokens()){
+					String value = token.nextToken();
+					
+					cell = row.createCell(c++);
+					if(c == 8){
+						StringTokenizer tokenBySpace = new StringTokenizer(value, " ");
+						
+						for(int si=0; si<tokenBySpace.countTokens(); si++){							
+							String item = tokenBySpace.nextToken();
+							StringTokenizer tokenByColon = new StringTokenizer(item, ":");
+							
+							for(int ci=0; ci<tokenByColon.countTokens(); ci++){
+								cell.setCellValue(tokenByColon.nextToken());
+								Cell cell2 = row.createCell(c);
+								cell2.setCellValue(tokenByColon.nextToken());
+							}
+						}
+						
+						System.out.println(value);
+					}else{
+						cell.setCellValue(value);
+					}
+				}
 			}
 		}
 
