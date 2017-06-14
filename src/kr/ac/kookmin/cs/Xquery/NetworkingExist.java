@@ -71,7 +71,7 @@ public class NetworkingExist {
 
 		// execute query and get results in ResourceSet
 		ResourceSet queryResult = service.execute(compiled);
-		excel.createDelegationSheet(queryResult);
+		excel.createDelegationSheet(queryResult, ecuName);
 		
 //		ResourceIterator i = result.getIterator();
 //		
