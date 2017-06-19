@@ -68,7 +68,7 @@ public class QueryForAssemblySheet {
 				+ "                                return $ASWC/REQUIRED-INTERFACE-TREF/data()\n"
 				
 				+ "    return concat($pPortSelectedInterface,\",\",$targetPportName[$i],\",\",$PportCategory[$i],\",\",$targetPportASWC[$i]\n"
-				+ "            ,\",\",$rPortSelectedInterface,\",\",$targetRportName[$i],\",\",$RportCategory[$i],\",\",$targetRportASWC[$i])delegateSheet";
+				+ "            ,\",\",$rPortSelectedInterface,\",\",$targetRportName[$i],\",\",$RportCategory[$i],\",\",$targetRportASWC[$i])";
 		return query;
 	}
 }

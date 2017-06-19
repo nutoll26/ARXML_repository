@@ -34,8 +34,6 @@ public class NetworkingExist {
 	private ExtractExcel excel = null;
 	
 	public NetworkingExist() {
-		excel = new ExtractExcel();
-		
 		try {
 			Class<?> cl = Class.forName(driver);
 			Database database = (Database) cl.newInstance();
@@ -66,20 +64,36 @@ public class NetworkingExist {
 	
 	public void SendQueryToExistDB(String ecuName) throws XMLDBException{
 		
-		String query = QueryForDelegationSheet.queryDelegationSheet(ecuName);
+		String query = null;
+		excel = new ExtractExcel();
+		
+		{
+		query = QueryForDelegationSheet.queryDelegationSheet(ecuName);
 		CompiledExpression compiled = service.compile(query);
 
 		// execute query and get results in ResourceSet
 		ResourceSet queryResult = service.execute(compiled);
-		excel.createDelegationSheet(queryResult, ecuName);
+		excel.createDelegationSheet(queryResult, ecuName);		
+		}
 		
-//		ResourceIterator i = result.getIterator();
+		{
+			query = QueryForAssemblySheet.queryAssemblySheet(ecuName);
+			CompiledExpression compiled = service.compile(query);
+
+			// execute query and get results in ResourceSet
+			ResourceSet queryResult = service.execute(compiled);
+			excel.createAssemblySheet(queryResult, ecuName);
+		}
+//		ResourceIterator i = queryResult.getIterator();
 //		
 //		while (i.hasMoreResources()) {
 //			org.xmldb.api.base.Resource r = i.nextResource();
-//			String queryResult = (String) r.getContent();
-//			System.out.println(queryResult);
+//			String result = (String) r.getContent();
+//			System.out.println(result);
 //		}
+		
+		excel.createExcelFile(ecuName);
+		excel = null;
 	}
 
 	/*
