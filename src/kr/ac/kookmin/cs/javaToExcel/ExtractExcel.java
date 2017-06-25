@@ -42,13 +42,10 @@ public class ExtractExcel {
 
 	public void createDelegationSheet(ResourceSet queryResult, String ecuName) throws XMLDBException {
 
-		// xlsxWb = new XSSFWorkbook(); // Excel 2007 이상
-
 		ResourceIterator iter = queryResult.getIterator();
 
 		int rowNumber = 0;
 
-		// *** Sheet-------------------------------------------------
 		// Sheet 생성
 		Sheet delegationSheet = xlsxWb.createSheet("Delegation");
 
@@ -62,9 +59,7 @@ public class ExtractExcel {
 		delegationSheet.setColumnWidth(6, 10000);
 		delegationSheet.setColumnWidth(7, 10000);
 		delegationSheet.setColumnWidth(8, 10000);
-		// ----------------------------------------------------------
 
-		// *** Style--------------------------------------------------
 		// Cell 스타일 생성
 		CellStyle cellStyle = xlsxWb.createCellStyle();
 
@@ -77,48 +72,44 @@ public class ExtractExcel {
 
 		Row row = null;
 		Cell cell = null;
-		// ----------------------------------------------------------
 
-		// 첫 번째 줄
 		row = delegationSheet.createRow(rowNumber++);
 
-		// 첫 번째 줄에 Cell 설정하기-------------
 		cell = row.createCell(0);
 		cell.setCellValue("No");
-		cell.setCellStyle(cellStyle); // 셀 스타일 적용
+		cell.setCellStyle(cellStyle);
 
 		cell = row.createCell(1);
 		cell.setCellValue("PortIterface\nShortName");
-		cell.setCellStyle(cellStyle); // 셀 스타일 적용
+		cell.setCellStyle(cellStyle);
 
 		cell = row.createCell(2);
 		cell.setCellValue("PortInterface\nCategory");
-		cell.setCellStyle(cellStyle); // 셀 스타일 적용
+		cell.setCellStyle(cellStyle);
 
 		cell = row.createCell(3);
 		cell.setCellValue("DataElement\nName");
-		cell.setCellStyle(cellStyle); // 셀 스타일 적용
+		cell.setCellStyle(cellStyle);
 
 		cell = row.createCell(4);
 		cell.setCellValue("DataType");
-		cell.setCellStyle(cellStyle); // 셀 스타일 적용
+		cell.setCellStyle(cellStyle);
 
 		cell = row.createCell(5);
 		cell.setCellValue("DataType\nCategory");
-		cell.setCellStyle(cellStyle); // 셀 스타일 적용
+		cell.setCellStyle(cellStyle);
 
 		cell = row.createCell(6);
 		cell.setCellValue("Shortname\nof Port");
-		cell.setCellStyle(cellStyle); // 셀 스타일 적용
+		cell.setCellStyle(cellStyle);
 
 		cell = row.createCell(7);
 		cell.setCellValue("Port Category");
-		cell.setCellStyle(cellStyle); // 셀 스타일 적용
+		cell.setCellStyle(cellStyle);
 
 		cell = row.createCell(8);
 		cell.setCellValue("Atomic SWC");
 		cell.setCellStyle(cellStyle);
-		// ---------------------------------
 
 		int numbering = 1;
 		while (iter.hasMoreResources()) {
@@ -216,7 +207,6 @@ public class ExtractExcel {
 
 			Row row = null;
 			Cell cell = null;
-			// ----------------------------------------------------------
 
 			// 첫 번째 줄
 			row = assemblySheet.createRow(rowNumber++);
@@ -224,23 +214,23 @@ public class ExtractExcel {
 			// 첫 번째 줄에 Cell 설정하기-------------
 			cell = row.createCell(0);
 			cell.setCellValue("No");
-			cell.setCellStyle(cellStyle); // 셀 스타일 적용
+			cell.setCellStyle(cellStyle);
 
 			cell = row.createCell(1);
 			cell.setCellValue("PortIterface\nShortName");
-			cell.setCellStyle(cellStyle); // 셀 스타일 적용
+			cell.setCellStyle(cellStyle);
 
 			cell = row.createCell(2);
 			cell.setCellValue("Shortname \nof Port");
-			cell.setCellStyle(cellStyle); // 셀 스타일 적용
+			cell.setCellStyle(cellStyle);
 
 			cell = row.createCell(3);
 			cell.setCellValue("Port\nCategory");
-			cell.setCellStyle(cellStyle); // 셀 스타일 적용
+			cell.setCellStyle(cellStyle);
 
 			cell = row.createCell(4);
 			cell.setCellValue("Atomic SWC");
-			cell.setCellStyle(cellStyle); // 셀 스타일 적용
+			cell.setCellStyle(cellStyle);
 
 			int numbering = 1;
 			while (iter.hasMoreResources()) {
