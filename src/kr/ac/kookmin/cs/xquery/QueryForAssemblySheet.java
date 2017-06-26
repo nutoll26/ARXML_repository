@@ -69,6 +69,7 @@ public class QueryForAssemblySheet {
 				
 				+ "    return concat($pPortSelectedInterface,\",\",$targetPportName[$i],\",\",$PportCategory[$i],\",\",$targetPportASWC[$i]\n"
 				+ "            ,\",\",$rPortSelectedInterface,\",\",$targetRportName[$i],\",\",$RportCategory[$i],\",\",$targetRportASWC[$i])";
+		
 		return query;
 	}
 }

@@ -236,7 +236,7 @@ public class ExtractExcel {
 			while (iter.hasMoreResources()) {
 				org.xmldb.api.base.Resource r = iter.nextResource();
 				String str = (String) r.getContent();
-				
+
 				StringTokenizer token = new StringTokenizer(str, ",");
 
 				row = assemblySheet.createRow(rowNumber++);
@@ -245,11 +245,11 @@ public class ExtractExcel {
 
 				int c = 1;
 				while (token.hasMoreTokens()) {
-					if(c == 5){
+					if (c == 5) {
 						row = assemblySheet.createRow(rowNumber++);
 						cell = row.createCell(0);
 						cell.setCellValue(numbering++);
-						
+
 						c = 1;
 					}
 					String value = token.nextToken();
@@ -258,6 +258,87 @@ public class ExtractExcel {
 					cell.setCellValue(value);
 				}
 			}
+		}
+	}
+
+	public void createContinValueSheet(ResourceSet queryResult, String ecuName) throws XMLDBException {
+		ResourceIterator iter = queryResult.getIterator();
+
+		int rowNumber = 0;
+
+		Sheet delegationSheet = xlsxWb.createSheet("ContinuousValue");
+
+		delegationSheet.setColumnWidth(0, 2000);
+		delegationSheet.setColumnWidth(1, 3500);
+		delegationSheet.setColumnWidth(2, 4000);
+		delegationSheet.setColumnWidth(3, 7000);
+		delegationSheet.setColumnWidth(4, 4000);
+		delegationSheet.setColumnWidth(5, 4000);
+		delegationSheet.setColumnWidth(6, 4000);
+		delegationSheet.setColumnWidth(7, 4000);
+
+		CellStyle cellStyle = xlsxWb.createCellStyle();
+
+		cellStyle.setWrapText(true);
+
+		cellStyle.setFillForegroundColor(HSSFColor.LIME.index);
+		cellStyle.setFillPattern(CellStyle.BIG_SPOTS);
+
+		Row row = null;
+		Cell cell = null;
+
+		row = delegationSheet.createRow(rowNumber++);
+
+		cell = row.createCell(0);
+		cell.setCellValue("No");
+		cell.setCellStyle(cellStyle);
+
+		cell = row.createCell(1);
+		cell.setCellValue("ShortName");
+		cell.setCellStyle(cellStyle);
+
+		cell = row.createCell(2);
+		cell.setCellValue("LongName");
+		cell.setCellStyle(cellStyle);
+
+		cell = row.createCell(3);
+		cell.setCellValue("Description");
+		cell.setCellStyle(cellStyle);
+
+		cell = row.createCell(4);
+		cell.setCellValue("Resolution");
+		cell.setCellStyle(cellStyle);
+
+		cell = row.createCell(5);
+		cell.setCellValue("Physical\nLower\nLimit");
+		cell.setCellStyle(cellStyle);
+
+		cell = row.createCell(6);
+		cell.setCellValue("Physical\nUpper\nLimit");
+		cell.setCellStyle(cellStyle);
+
+		cell = row.createCell(7);
+		cell.setCellValue("Unit");
+		cell.setCellStyle(cellStyle);
+
+		int numbering = 1;
+		while (iter.hasMoreResources()) {
+			org.xmldb.api.base.Resource r = iter.nextResource();
+			String str = (String) r.getContent();
+			StringTokenizer token = new StringTokenizer(str, ",");
+
+			row = delegationSheet.createRow(rowNumber++);
+			cell = row.createCell(0);
+			cell.setCellValue(numbering++);
+
+			int c = 1;
+			while (token.hasMoreTokens()) {
+				String value = token.nextToken();
+
+				cell = row.createCell(c++);
+				cell.setCellValue(value);
+			}
+			
 		}
 	}
 }

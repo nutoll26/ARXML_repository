@@ -84,6 +84,15 @@ public class NetworkingExist {
 			ResourceSet queryResult = service.execute(compiled);
 			excel.createAssemblySheet(queryResult, ecuName);
 		}
+		
+		{
+			query = QueryForContinValueSheet.queryContinuousSheet(ecuName);
+			CompiledExpression compiled = service.compile(query);
+
+			// execute query and get results in ResourceSet
+			ResourceSet queryResult = service.execute(compiled);
+			excel.createContinValueSheet(queryResult, ecuName);
+		}
 //		ResourceIterator i = queryResult.getIterator();
 //		
 //		while (i.hasMoreResources()) {
