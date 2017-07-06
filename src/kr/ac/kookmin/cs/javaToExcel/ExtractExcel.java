@@ -341,4 +341,128 @@ public class ExtractExcel {
 			
 		}
 	}
+	
+	public void createEnumerationSheet(ResourceSet queryResult, String ecuName) throws XMLDBException {
+		ResourceIterator iter = queryResult.getIterator();
+
+		if (iter.hasMoreResources()) {
+			int rowNumber = 0;
+
+			Sheet assemblySheet = xlsxWb.createSheet("Enumeration");
+
+			assemblySheet.setColumnWidth(0, 8000);
+			assemblySheet.setColumnWidth(1, 8000);
+			assemblySheet.setColumnWidth(2, 8000);
+			assemblySheet.setColumnWidth(3, 5500);
+			assemblySheet.setColumnWidth(4, 5500);
+			assemblySheet.setColumnWidth(5, 5500);
+			
+
+			CellStyle cellStyle = xlsxWb.createCellStyle();
+
+			cellStyle.setWrapText(true);
+
+			cellStyle.setFillForegroundColor(HSSFColor.LIME.index);
+			cellStyle.setFillPattern(CellStyle.BIG_SPOTS);
+
+			Row row = null;
+			Cell cell = null;
+
+			// 첫 번째 줄
+			row = assemblySheet.createRow(rowNumber++);
+
+			// 첫 번째 줄에 Cell 설정하기-------------
+			cell = row.createCell(0);
+			cell.setCellValue("Data type\nname");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(1);
+			cell.setCellValue("Long Name");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(2);
+			cell.setCellValue("Description");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(3);
+			cell.setCellValue("value");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(4);
+			cell.setCellValue("name");
+			cell.setCellStyle(cellStyle);
+			
+			cell = row.createCell(5);
+			cell.setCellValue("comment");
+			cell.setCellStyle(cellStyle);
+
+			while (iter.hasMoreResources()) {
+				org.xmldb.api.base.Resource r = iter.nextResource();
+				String str = (String) r.getContent();
+
+				StringTokenizer token = new StringTokenizer(str, "@");
+
+				row = assemblySheet.createRow(rowNumber++);
+
+				int c = 0;
+				while (token.hasMoreTokens()) {
+					String value = token.nextToken();
+					
+					if (c == 3) {
+						StringTokenizer token2 = new StringTokenizer(value, "#");
+						
+						String value2 = token2.nextToken();
+						
+						StringTokenizer token3 = new StringTokenizer(value2);
+						
+						cell = row.createCell(3);
+						cell.setCellValue(token3.nextToken());
+						token3.nextToken();
+						cell = row.createCell(4);
+						cell.setCellValue(token3.nextToken());
+						
+						if(token3.hasMoreTokens()){
+							cell = row.createCell(5);
+							String strAppend = "";
+							
+							while(token3.hasMoreTokens()){
+								strAppend += token3.nextToken();
+								strAppend += " ";
+							}
+							cell.setCellValue(strAppend);
+						}
+						
+						while(token2.hasMoreTokens()){							
+							row = assemblySheet.createRow(rowNumber++);
+							
+							value2 = token2.nextToken();
+							
+							token3 = new StringTokenizer(value2);
+							
+							cell = row.createCell(3);
+							cell.setCellValue(token3.nextToken());
+							token3.nextToken();
+							cell = row.createCell(4);
+							cell.setCellValue(token3.nextToken());
+							
+							if(token3.hasMoreTokens()){
+								cell = row.createCell(5);
+								String strAppend = "";
+								
+								while(token3.hasMoreTokens()){
+									strAppend += token3.nextToken();
+									strAppend += " ";
+								}
+								cell.setCellValue(strAppend);
+							}
+						}
+						c = 0;
+					}else{
+						cell = row.createCell(c++);
+						cell.setCellValue(value);						
+					}
+				}
+			}
+		}
+	}
 }

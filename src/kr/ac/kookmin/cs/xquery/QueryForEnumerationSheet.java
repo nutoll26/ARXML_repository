@@ -68,11 +68,11 @@ public class QueryForEnumerationSheet {
 				+ "    <tag>{\n"
 				+ "        for $k in (1 to $numOfValue)\n"
 				+ "        let $null := \"\"\n"
-				+ "        return concat($null, $textTableCompuMethod/COMPU-INTERNAL-TO-PHYS/COMPU-SCALES/COMPU-SCALE[$k],\"#\")}\n"
+				+ "        return concat($null, $textTableCompuMethod/COMPU-INTERNAL-TO-PHYS/COMPU-SCALES/COMPU-SCALE[$k]/DESC,\"#\")}\n"
 				+ "    </tag>/data()\n"
 				
 				+ "    return if (count($_textTableCompuMethod) != 0)\n"
-				+ "        then concat($distinctdataTypeName[$i],\"@\",$textTableLongName,\"@\",$discription,\"@\",$numOfValue,\"@\",$valueList)\n"
+				+ "        then concat($distinctdataTypeName[$i],\"@\",$textTableLongName,\"@\",$discription,\"@\",$valueList)\n"
 				+ "        else ()";
 				
 		return query;
