@@ -9,7 +9,7 @@ public class QueryForEnumerationSheet {
 				+ "declare namespace schemaLocation=\"http://autosar.org/schema/r4.0 autosar_4-2-2.xsd\";"
 				
 				+ "let $CSWC := for $all in doc(\"nutoll/AUTOSAR_MOD_AISpecificationExamples.arxml\")//AR-PACKAGE/ELEMENTS/COMPOSITION-SW-COMPONENT-TYPE\n"
-				+ "    where $all/SHORT-NAME = \"ExtrLi\"\n"
+				+ "    where $all/SHORT-NAME = \""+ ecuName + "\"\n"
 				+ "    return $all\n"
 				
 				+ "let $deligationPorts := $CSWC/PORTS\n"
