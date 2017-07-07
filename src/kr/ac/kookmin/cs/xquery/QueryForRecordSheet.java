@@ -1,7 +1,7 @@
 package kr.ac.kookmin.cs.xquery;
 
 public class QueryForRecordSheet {
-	static String queryEnumerationSheet(String ecuName){
+	static String queryRecordSheet(String ecuName){
 		String query = 
 				"xquery version \"3.1\";"
 				+ "declare default element namespace \"http://autosar.org/schema/r4.0\";"
@@ -43,8 +43,13 @@ public class QueryForRecordSheet {
 				+ "    <tag>{\n"
 				+ "        for $k in (1 to $numOfType)\n"
 				+ "        let $null := \"\"\n"
-				+ "        return concat($null, $recordDataType[$i]/ELEMENTS/APPLICATION-RECORD-ELEMENT[$k]/data(),\"#\")}\n"
-				+ "    </tag>/data()\n"
+				+ "        let $recordElementName := $recordDataType[$i]/ELEMENTS/APPLICATION-RECORD-ELEMENT[$k]/SHORT-NAME/data()\n"
+				+ "        let $recordElementType := $recordDataType[$i]/ELEMENTS/APPLICATION-RECORD-ELEMENT[$k]/TYPE-TREF/data()\n"
+				+ "        let $recordElementDesc := if(boolean($recordDataType[$i]/ELEMENTS/APPLICATION-RECORD-ELEMENT[$k]/DESC))\n"
+				+ "                                    then $recordDataType[$i]/ELEMENTS/APPLICATION-RECORD-ELEMENT[$k]/DESC/data()\n"
+				+ "                                    else ()\n"
+				+ "        return concat($null, $recordElementName,\" \",$recordElementType,\" \",$recordElementDesc,\"#\")}\n"
+				+ "    </tag>/data()\n"				
 				
 				+ "    return concat($recordDataShortName,\"@\",$recordDataLongName,\"@\",$recordDataDescription,\"@\",$numOfType,\"@\",$valueList)";
 				

@@ -102,22 +102,16 @@ public class NetworkingExist {
 			ResourceSet queryResult = service.execute(compiled);
 			excel.createEnumerationSheet(queryResult, ecuName);
 		}
-//		ResourceIterator i = queryResult.getIterator();
-//		
-//		while (i.hasMoreResources()) {
-//			org.xmldb.api.base.Resource r = i.nextResource();
-//			String result = (String) r.getContent();
-//			System.out.println(result);
-//		}
+		
+		{
+			query = QueryForRecordSheet.queryRecordSheet(ecuName);
+			CompiledExpression compiled = service.compile(query);
+
+			ResourceSet queryResult = service.execute(compiled);
+			excel.createRecordSheet(queryResult, ecuName);
+		}
 		
 		excel.createExcelFile(ecuName);
 		excel = null;
 	}
-
-	/*
-	 * String readFile(String file) throws IOException { try (BufferedReader f =
-	 * new BufferedReader(new FileReader(file))) { String line; StringBuffer xml
-	 * = new StringBuffer(); while ((line = f.readLine()) != null) {
-	 * xml.append(line); } return xml.toString(); } }
-	 */
 }

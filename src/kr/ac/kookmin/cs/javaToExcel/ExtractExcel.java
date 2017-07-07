@@ -264,84 +264,86 @@ public class ExtractExcel {
 	public void createContinValueSheet(ResourceSet queryResult, String ecuName) throws XMLDBException {
 		ResourceIterator iter = queryResult.getIterator();
 
-		int rowNumber = 0;
+		if (iter.hasMoreResources()) {
+			int rowNumber = 0;
 
-		Sheet delegationSheet = xlsxWb.createSheet("ContinuousValue");
+			Sheet delegationSheet = xlsxWb.createSheet("ContinuousValue");
 
-		delegationSheet.setColumnWidth(0, 2000);
-		delegationSheet.setColumnWidth(1, 3500);
-		delegationSheet.setColumnWidth(2, 4000);
-		delegationSheet.setColumnWidth(3, 7000);
-		delegationSheet.setColumnWidth(4, 4000);
-		delegationSheet.setColumnWidth(5, 4000);
-		delegationSheet.setColumnWidth(6, 4000);
-		delegationSheet.setColumnWidth(7, 4000);
+			delegationSheet.setColumnWidth(0, 2000);
+			delegationSheet.setColumnWidth(1, 3500);
+			delegationSheet.setColumnWidth(2, 4000);
+			delegationSheet.setColumnWidth(3, 7000);
+			delegationSheet.setColumnWidth(4, 4000);
+			delegationSheet.setColumnWidth(5, 4000);
+			delegationSheet.setColumnWidth(6, 4000);
+			delegationSheet.setColumnWidth(7, 4000);
 
-		CellStyle cellStyle = xlsxWb.createCellStyle();
+			CellStyle cellStyle = xlsxWb.createCellStyle();
 
-		cellStyle.setWrapText(true);
+			cellStyle.setWrapText(true);
 
-		cellStyle.setFillForegroundColor(HSSFColor.LIME.index);
-		cellStyle.setFillPattern(CellStyle.BIG_SPOTS);
+			cellStyle.setFillForegroundColor(HSSFColor.LIME.index);
+			cellStyle.setFillPattern(CellStyle.BIG_SPOTS);
 
-		Row row = null;
-		Cell cell = null;
-
-		row = delegationSheet.createRow(rowNumber++);
-
-		cell = row.createCell(0);
-		cell.setCellValue("No");
-		cell.setCellStyle(cellStyle);
-
-		cell = row.createCell(1);
-		cell.setCellValue("ShortName");
-		cell.setCellStyle(cellStyle);
-
-		cell = row.createCell(2);
-		cell.setCellValue("LongName");
-		cell.setCellStyle(cellStyle);
-
-		cell = row.createCell(3);
-		cell.setCellValue("Description");
-		cell.setCellStyle(cellStyle);
-
-		cell = row.createCell(4);
-		cell.setCellValue("Resolution");
-		cell.setCellStyle(cellStyle);
-
-		cell = row.createCell(5);
-		cell.setCellValue("Physical\nLower\nLimit");
-		cell.setCellStyle(cellStyle);
-
-		cell = row.createCell(6);
-		cell.setCellValue("Physical\nUpper\nLimit");
-		cell.setCellStyle(cellStyle);
-
-		cell = row.createCell(7);
-		cell.setCellValue("Unit");
-		cell.setCellStyle(cellStyle);
-
-		int numbering = 1;
-		while (iter.hasMoreResources()) {
-			org.xmldb.api.base.Resource r = iter.nextResource();
-			String str = (String) r.getContent();
-			StringTokenizer token = new StringTokenizer(str, ",");
+			Row row = null;
+			Cell cell = null;
 
 			row = delegationSheet.createRow(rowNumber++);
+
 			cell = row.createCell(0);
-			cell.setCellValue(numbering++);
+			cell.setCellValue("No");
+			cell.setCellStyle(cellStyle);
 
-			int c = 1;
-			while (token.hasMoreTokens()) {
-				String value = token.nextToken();
+			cell = row.createCell(1);
+			cell.setCellValue("ShortName");
+			cell.setCellStyle(cellStyle);
 
-				cell = row.createCell(c++);
-				cell.setCellValue(value);
+			cell = row.createCell(2);
+			cell.setCellValue("LongName");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(3);
+			cell.setCellValue("Description");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(4);
+			cell.setCellValue("Resolution");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(5);
+			cell.setCellValue("Physical\nLower\nLimit");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(6);
+			cell.setCellValue("Physical\nUpper\nLimit");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(7);
+			cell.setCellValue("Unit");
+			cell.setCellStyle(cellStyle);
+
+			int numbering = 1;
+			while (iter.hasMoreResources()) {
+				org.xmldb.api.base.Resource r = iter.nextResource();
+				String str = (String) r.getContent();
+				StringTokenizer token = new StringTokenizer(str, ",");
+
+				row = delegationSheet.createRow(rowNumber++);
+				cell = row.createCell(0);
+				cell.setCellValue(numbering++);
+
+				int c = 1;
+				while (token.hasMoreTokens()) {
+					String value = token.nextToken();
+
+					cell = row.createCell(c++);
+					cell.setCellValue(value);
+				}
+
 			}
-			
 		}
 	}
-	
+
 	public void createEnumerationSheet(ResourceSet queryResult, String ecuName) throws XMLDBException {
 		ResourceIterator iter = queryResult.getIterator();
 
@@ -356,7 +358,6 @@ public class ExtractExcel {
 			assemblySheet.setColumnWidth(3, 5500);
 			assemblySheet.setColumnWidth(4, 5500);
 			assemblySheet.setColumnWidth(5, 5500);
-			
 
 			CellStyle cellStyle = xlsxWb.createCellStyle();
 
@@ -391,7 +392,7 @@ public class ExtractExcel {
 			cell = row.createCell(4);
 			cell.setCellValue("name");
 			cell.setCellStyle(cellStyle);
-			
+
 			cell = row.createCell(5);
 			cell.setCellValue("comment");
 			cell.setCellStyle(cellStyle);
@@ -407,49 +408,49 @@ public class ExtractExcel {
 				int c = 0;
 				while (token.hasMoreTokens()) {
 					String value = token.nextToken();
-					
+
 					if (c == 3) {
 						StringTokenizer token2 = new StringTokenizer(value, "#");
-						
+
 						String value2 = token2.nextToken();
-						
+
 						StringTokenizer token3 = new StringTokenizer(value2);
-						
+
 						cell = row.createCell(3);
 						cell.setCellValue(token3.nextToken());
 						token3.nextToken();
 						cell = row.createCell(4);
 						cell.setCellValue(token3.nextToken());
-						
-						if(token3.hasMoreTokens()){
+
+						if (token3.hasMoreTokens()) {
 							cell = row.createCell(5);
 							String strAppend = "";
-							
-							while(token3.hasMoreTokens()){
+
+							while (token3.hasMoreTokens()) {
 								strAppend += token3.nextToken();
 								strAppend += " ";
 							}
 							cell.setCellValue(strAppend);
 						}
-						
-						while(token2.hasMoreTokens()){							
+
+						while (token2.hasMoreTokens()) {
 							row = assemblySheet.createRow(rowNumber++);
-							
+
 							value2 = token2.nextToken();
-							
+
 							token3 = new StringTokenizer(value2);
-							
+
 							cell = row.createCell(3);
 							cell.setCellValue(token3.nextToken());
 							token3.nextToken();
 							cell = row.createCell(4);
 							cell.setCellValue(token3.nextToken());
-							
-							if(token3.hasMoreTokens()){
+
+							if (token3.hasMoreTokens()) {
 								cell = row.createCell(5);
 								String strAppend = "";
-								
-								while(token3.hasMoreTokens()){
+
+								while (token3.hasMoreTokens()) {
 									strAppend += token3.nextToken();
 									strAppend += " ";
 								}
@@ -457,9 +458,145 @@ public class ExtractExcel {
 							}
 						}
 						c = 0;
-					}else{
+					} else {
 						cell = row.createCell(c++);
-						cell.setCellValue(value);						
+						cell.setCellValue(value);
+					}
+				}
+			}
+		}
+	}
+
+	public void createRecordSheet(ResourceSet queryResult, String ecuName) throws XMLDBException {
+		ResourceIterator iter = queryResult.getIterator();
+
+		if (iter.hasMoreResources()) {
+			int rowNumber = 0;
+
+			Sheet assemblySheet = xlsxWb.createSheet("Record");
+
+			assemblySheet.setColumnWidth(0, 6000);
+			assemblySheet.setColumnWidth(1, 6000);
+			assemblySheet.setColumnWidth(2, 8000);
+			assemblySheet.setColumnWidth(3, 3000);
+			assemblySheet.setColumnWidth(4, 5500);
+			assemblySheet.setColumnWidth(5, 5500);
+			assemblySheet.setColumnWidth(6, 8000);
+
+			CellStyle cellStyle = xlsxWb.createCellStyle();
+
+			cellStyle.setWrapText(true);
+
+			cellStyle.setFillForegroundColor(HSSFColor.LIME.index);
+			cellStyle.setFillPattern(CellStyle.BIG_SPOTS);
+
+			Row row = null;
+			Cell cell = null;
+
+			// 첫 번째 줄
+			row = assemblySheet.createRow(rowNumber++);
+
+			// 첫 번째 줄에 Cell 설정하기-------------
+			cell = row.createCell(0);
+			cell.setCellValue("Record type\nname");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(1);
+			cell.setCellValue("Long Name");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(2);
+			cell.setCellValue("Description");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(3);
+			cell.setCellValue("Number of\nelement");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(4);
+			cell.setCellValue("Name");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(5);
+			cell.setCellValue("Type name");
+			cell.setCellStyle(cellStyle);
+
+			cell = row.createCell(6);
+			cell.setCellValue("Comment");
+			cell.setCellStyle(cellStyle);
+
+			while (iter.hasMoreResources()) {
+				org.xmldb.api.base.Resource r = iter.nextResource();
+				String str = (String) r.getContent();
+
+				StringTokenizer token = new StringTokenizer(str, "@");
+
+				row = assemblySheet.createRow(rowNumber++);
+
+				int c = 0;
+				while (token.hasMoreTokens()) {
+					String value = token.nextToken();
+
+					if (c == 4) {
+						StringTokenizer token2 = new StringTokenizer(value, "#");
+						String value2 = token2.nextToken();
+						
+						StringTokenizer token3 = new StringTokenizer(value2);
+						
+						if(token3.countTokens() == 2){	
+							cell = row.createCell(4);
+							cell.setCellValue(token3.nextToken());
+							
+							cell = row.createCell(5);
+							cell.setCellValue(token3.nextToken());
+						}else{	
+							cell = row.createCell(4);
+							cell.setCellValue(token3.nextToken());
+							
+							cell = row.createCell(5);
+							cell.setCellValue(token3.nextToken());
+							
+							cell = row.createCell(6);
+							String temp = "";
+							while(token3.hasMoreTokens()){
+								temp += token3.nextToken();
+								temp += " ";
+							}
+							cell.setCellValue(temp);
+						}
+						
+						while (token2.hasMoreTokens()) {
+							row = assemblySheet.createRow(rowNumber++);
+							
+							value2 = token2.nextToken();
+							
+							token3 = new StringTokenizer(value2);
+							if(token3.countTokens() == 2){	
+								cell = row.createCell(4);
+								cell.setCellValue(token3.nextToken());
+								
+								cell = row.createCell(5);
+								cell.setCellValue(token3.nextToken());
+							}else{	
+								cell = row.createCell(4);
+								cell.setCellValue(token3.nextToken());
+								
+								cell = row.createCell(5);
+								cell.setCellValue(token3.nextToken());
+								
+								cell = row.createCell(6);
+								String temp = "";
+								while(token3.hasMoreTokens()){
+									temp += token3.nextToken();
+									temp += " ";
+								}
+								cell.setCellValue(temp);
+							}
+						}
+						c = 0;
+					} else {
+						cell = row.createCell(c++);
+						cell.setCellValue(value);
 					}
 				}
 			}
